@@ -2,7 +2,7 @@
 
 <p align="center">
   <!-- Lưu ý: Đảm bảo đường dẫn src khớp với tên file ảnh và thư mục trên GitHub của bạn -->
-  <img src="image.\xomdata_dataset 2 - xomdata_dataset - e_commerce.png" alt="E-Commerce Data Schema" width="85%">
+  <img src="1. E_Commerce\image\xomdata_dataset 2 - xomdata_dataset - e_commerce.png" alt="E-Commerce Data Schema" width="85%">
 </p>
 
 ---
