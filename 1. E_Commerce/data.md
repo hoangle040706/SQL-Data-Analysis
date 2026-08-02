@@ -1,12 +1,6 @@
 ### 🗺️ Data Schema
-
-```mermaid
 %%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#e1f5fe', 'edgeLabelBackground':'#ffffff', 'tertiaryColor': '#fff'}}}%%
 erDiagram
-    %% Mối quan hệ giữa các bảng
-    CUSTOMER ||--o{ ECOM_SALES : "places"
-    PRODUCT ||--o{ ECOM_SALES : "includes"
-    REGION ||--o{ ECOM_SALES : "occurs_in"
     
     %% Định nghĩa bảng CUSTOMER (Dimension)
     CUSTOMER {
@@ -58,12 +52,17 @@ erDiagram
         decimal(10) profit
     }
 ```
+```html
+### 🗺️ Data Schema (Sơ đồ dữ liệu)
+
+<p align="center">
+  <img src="1. E_Commerce\image\xomdata_dataset 2 - xomdata_dataset - e_commerce.png" alt="E_Commerce Schema" width="80%">
+</p>
 
 ### 2. Từ điển dữ liệu (Data Dictionary) cho bảng `region`
 
 Bạn hãy thêm bảng này nối tiếp vào các bảng từ điển dữ liệu trước đó nhé:
 
-```markdown
 ### 📖 Data Dictionary: Bảng `region`
 
 | Tên cột | Kiểu dữ liệu | Ràng buộc | Mô tả (Ý nghĩa kinh doanh) |
@@ -72,8 +71,7 @@ Bạn hãy thêm bảng này nối tiếp vào các bảng từ điển dữ li�
 | **city** | `nvarchar(50)` | Null | Tên thành phố |
 | **state** | `nvarchar(50)` | Null | Tên bang/tỉnh thành |
 | **country** | `nvarchar(50)` | Null | Tên quốc gia |
-| **country_latitude**| `decimal(10,6)`| Null | Vĩ độ của quốc gia (Dùng để vẽ biểu đồ bản đồ) |
-| **country_longitude**|`decimal(10,6)`| Null | Kinh độ của quốc gia (Dùng để vẽ biểu đồ bản đồ) |
+| **country_latitude** | `decimal(10,6)` | Null | Vĩ độ của quốc gia (Dùng để vẽ biểu đồ bản đồ) |
+| **country_longitude** | `decimal(10,6)` | Null | Kinh độ của quốc gia (Dùng để vẽ biểu đồ bản đồ) |
 | **region** | `nvarchar(50)` | Null | Khu vực cụ thể (Ví dụ: Đông Nam Á, Bắc Mỹ...) |
 | **market** | `nvarchar(50)` | Null | Phân khúc thị trường rộng lớn hơn (Ví dụ: Châu Á Thái Bình Dương - APAC) |
-```
