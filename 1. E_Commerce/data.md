@@ -1,4 +1,4 @@
-### 1. 🗺️ Data Schema (Sơ đồ dữ liệu)
+### 1. Data Schema (Sơ đồ dữ liệu)
 
 <p align="center">
   <!-- Lưu ý: Đảm bảo đường dẫn src khớp với tên file ảnh và thư mục trên GitHub của bạn -->
@@ -7,7 +7,7 @@
 
 ---
 
-### 2. 📖 Data Dictionary (Từ điển dữ liệu)
+### 2. Data Dictionary (Từ điển dữ liệu)
 
 Dưới đây là chi tiết ý nghĩa kinh doanh của các trường dữ liệu quan trọng trong hệ thống:
 
@@ -64,3 +64,46 @@ Dưới đây là chi tiết ý nghĩa kinh doanh của các trường dữ li�
 | **product** | `nvarchar(255)`| Null | Tên hiển thị chi tiết của sản phẩm |
 | **category** | `nvarchar(50)` | Null | Danh mục ngành hàng chính |
 | **subcategory** | `nvarchar(50)` | Null | Danh mục phụ |
+
+---
+
+### 3. Dữ liệu mẫu (Sample Data): 
+
+**Bảng `region`**
+
+| region_code | city | state | country | country_latitude | country_longitude | region | market |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| R0001 | Jalalabad | Nangarhar | Afghanistan | 33.939110 | 67.709953 | Southern Asia | Asia Pacific |
+| R0002 | Herat | Hirat | Afghanistan | 33.939110 | 67.709953 | Southern Asia | Asia Pacific |
+| R0003 | Kabul | Kabul | Afghanistan | 33.939110 | 67.709953 | Southern Asia | Asia Pacific |
+| R0004 | Kandahar | Kandahar | Afghanistan | 33.939110 | 67.709953 | Southern Asia | Asia Pacific |
+| R0005 | Elbasan | Elbasan | Albania | 41.153332 | 20.168331 | Southern Europe | Europe |
+
+**Bảng `customer`**
+
+| customer_id | first_name | last_name | birth_date | marital_status | gender | email_address | annual_income | education_level | occupation | home_owner |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| AA-10315102 | Bryant | Vazquez | 1980-01-21 | M | M | bryant6@hotmail.com | 20000 | Bachelors | Clerical | Y |
+| AA-10315120 | Jon | Rubio | 1998-12-01 | S | M | jon6@hotmail.com | 20000 | Bachelors | Clerical | N |
+| AA-10315139 | Jésus | Hernandez | 1973-01-27 | M | M | jésus20@hotmail.com | 30000 | Bachelors | Clerical | Y |
+| AA-103151402 | Marcus | Taylor | 1999-01-24 | S | M | marcus31@hotmail.com | 40000 | Partial College | Skilled Manual | N |
+| AA-103151404 | Jesse | Dominguez | 1968-09-11 | S | M | jesse34@hotmail.com | 40000 | High School | Skilled Manual | Y |
+
+**Bảng `ecom_sales`**
+| row_id | order_id | order_date | customer_id | segment | region_code | product_code | quantity | sales | discount | profit |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| 1 | MX-2015-SC2057582-42279 | 2023-10-02 | SC-2057582 | Consumer | R2140 | P000409 | 3 | 48.00 | 0.00 | 19.20 |
+| 2 | MX-2013-KW1657028-41562 | 2021-10-15 | KW-1657028 | Consumer | R0816 | P000147 | 8 | 48.00 | 0.00 | 7.20 |
+| 3 | MX-2013-KW1657028-41562 | 2021-10-15 | KW-1657028 | Consumer | R0816 | P000395 | 2 | 16.00 | 0.00 | 8.00 |
+| 4 | MX-2013-KW1657028-41562 | 2021-10-15 | KW-1657028 | Consumer | R0816 | P002140 | 4 | 28.00 | 0.00 | 14.00 |
+| 5 | MX-2013-KW1657028-41562 | 2021-10-15 | KW-1657028 | Consumer | R0816 | P002828 | 2 | 20.00 | 0.00 | 10.00 |
+
+**Bảng `product`**
+
+| product_code | product | category | subcategory |
+| :--- | :--- | :--- | :--- |
+| P000001 | Soap & Glory Endless Glove Moisturizing Hand Cream | Body care | bath oils, bubbles and soaks |
+| P000002 | Pantene Pro-V Truly Relaxed Hair Lightweight Conditioner | Body care | bath oils, bubbles and soaks |
+| P000003 | Estée Lauder Pure Color Envy Irresistible | Body care | bath oils, bubbles and soaks |
+| P000004 | Gold Infinity Bracelet | Body care | body moisturizers |
+| P000005 | Deborah Lippmann Nail Polish Lady is a Tramp Classic Red | Body care | body moisturizers |
