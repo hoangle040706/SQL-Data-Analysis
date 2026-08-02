@@ -35,6 +35,7 @@ SELECT SUM(es.sales) AS tong_doanh_thu,
 FROM e_commerce.ecom_sales AS es;
 ```
 **Query Results:**
+<img width="375" height="73" alt="image" src="https://github.com/user-attachments/assets/9eb693bd-d37b-416b-9819-f1036d834fbd" />
 
 **Insight:**
 
