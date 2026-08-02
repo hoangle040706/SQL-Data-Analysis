@@ -25,7 +25,7 @@ Phần này mô tả chi tiết quá trình khám phá dữ liệu. Mỗi câu h
 
 --- 
 
-### Câu 1: Em ơi, CEO hỏi nhanh: tổng doanh thu từ trước đến nay là bao nhiêu, và tổng profit là bao nhiêu?Chị cần 2 con số để trả lời CEO trong 10 phút nữa. <!-- omit from toc -->
+### Câu 1: Em ơi, CEO hỏi nhanh: tổng doanh thu từ trước đến nay là bao nhiêu, và tổng profit là bao nhiêu? Chị cần 2 con số để trả lời CEO trong 10 phút nữa. <!-- omit from toc -->
 — Head of Finance
 
 **SQL Queries**
