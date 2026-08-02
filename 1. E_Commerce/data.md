@@ -52,12 +52,9 @@ erDiagram
         decimal(10) profit
     }
 ```
-```html
 ### 🗺️ Data Schema (Sơ đồ dữ liệu)
 
-<p align="center">
-  <img src="1. E_Commerce\image\xomdata_dataset 2 - xomdata_dataset - e_commerce.png" alt="E_Commerce Schema" width="80%">
-</p>
+![E_Commerce Schema](./xomdata_dataset 2 - xomdata_dataset - e_commerce.png)
 
 ### 2. Từ điển dữ liệu (Data Dictionary) cho bảng `region`
 
