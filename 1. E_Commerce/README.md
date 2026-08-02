@@ -9,7 +9,7 @@
   - [Table of Contents](#table-of-contents)
   - [1. Project Overview](#1-project-overview)
   - [2. Data Analysis: Business Questions, SQL Queries \& Insights](#2-data-analysis-business-questions-sql-queries--insights)
-    - [Câu 1: Em ơi, CEO hỏi nhanh: tổng doanh thu từ trước đến nay là bao nhiêu, và tổng profit là bao nhiêu?Chị cần 2 con số để trả lời CEO trong 10 phút nữa.](#câu-1-em-ơi-ceo-hỏi-nhanh-tổng-doanh-thu-từ-trước-đến-nay-là-bao-nhiêu-và-tổng-profit-là-bao-nhiêuchị-cần-2-con-số-để-trả-lời-ceo-trong-10-phút-nữa)
+
 
 ---
 
@@ -25,7 +25,7 @@ Phần này mô tả chi tiết quá trình khám phá dữ liệu. Mỗi câu h
 
 --- 
 
-### Câu 1: Em ơi, CEO hỏi nhanh: tổng doanh thu từ trước đến nay là bao nhiêu, và tổng profit là bao nhiêu?Chị cần 2 con số để trả lời CEO trong 10 phút nữa.
+### Câu 1: Em ơi, CEO hỏi nhanh: tổng doanh thu từ trước đến nay là bao nhiêu, và tổng profit là bao nhiêu?Chị cần 2 con số để trả lời CEO trong 10 phút nữa. <!-- omit from toc -->
 — Head of Finance
 
 **SQL Queries**
@@ -35,7 +35,6 @@ SELECT SUM(es.sales) AS tong_doanh_thu,
 FROM e_commerce.ecom_sales AS es;
 ```
 **Query Results:**
-
 
 **Insight:**
 
