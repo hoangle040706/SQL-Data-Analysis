@@ -30,7 +30,7 @@ Phần này mô tả chi tiết quá trình khám phá dữ liệu. Mỗi câu h
 
 **SQL Queries**
 ```sql
-SELECT SUM(es.sales) AS tong_doanh_thu,
+SELECT SUM(es.sales) AS tong_doanh_thu,.
        SUM(es.profit) AS tong_profit
 FROM e_commerce.ecom_sales AS es;
 ```
@@ -38,22 +38,25 @@ FROM e_commerce.ecom_sales AS es;
 
 <img width="375" height="73" alt="image" src="https://github.com/user-attachments/assets/9eb693bd-d37b-416b-9819-f1036d834fbd" />
 
-**Insight:**
+### Câu 2: Anh cần tổng doanh thu + tổng profit theo từng segment khách hàng (Consumer / Corporate / Home Office) để so sánh độ đóng góp của 3 nhóm. Sắp theo doanh thu giảm dần.
+— Head of Growth
 
-
-
--- Anh cần tổng doanh thu + tổng profit theo từng segment khách hàng (Consumer / Corporate / Home Office)
--- để so sánh độ đóng góp của 3 nhóm. Sắp theo doanh thu giảm dần.
--- — Head of Growth
+**SQL Queries**
+```sql
 SELECT es.segment,
        SUM(es.sales + es.profit) AS tong_dt_profit
 FROM e_commerce.ecom_sales AS es
 GROUP BY es.segment
 ORDER BY SUM(es.sales) DESC;
+```
+**Query Results:**
+<img width="375" height="73" alt="image" src="https://github.com/hoangle040706/SQL-Data-Analysis/issues/2#issue-5814325819" />
 
--- Chị đang planning restock, cần top 10 sản phẩm bán chạy nhất theo số lượng (không tính doanh thu).
--- Gửi chị: mã sản phẩm, tên sản phẩm, tổng số lượng đã bán.
--- — Head of Merchandising
+### Câu 3: Chị đang planning restock, cần top 10 sản phẩm bán chạy nhất theo số lượng (không tính doanh thu). Gửi chị: mã sản phẩm, tên sản phẩm, tổng số lượng đã bán.
+— Head of Merchandising
+
+**SQL Queries**
+```sql
 SELECT TOP(10)
        p.product_code AS ma_sp,
        p.product AS ten_sp,
@@ -62,31 +65,40 @@ FROM e_commerce.product AS p
 JOIN e_commerce.ecom_sales AS es ON p.product_code = es.product_code
 GROUP BY p.product_code, p.product
 ORDER BY so_luong DESC;
+```
 
--- Team CRM cần bảng phân bố khách hàng theo giới tính và nghề nghiệp để chọn targeting cho campaign email.
--- Output pivot table: nghề nghiệp (hàng) × giới tính (cột) × số khách.
--- — Head of CRM
+### Câu 4: Team CRM cần bảng phân bố khách hàng theo giới tính và nghề nghiệp để chọn targeting cho campaign email.Output pivot table: nghề nghiệp (hàng) × giới tính (cột) × số khách.
+— Head of CRM
+
+**SQL Queries**
+```sql
 SELECT c.occupation AS nghe_nghiep,
        SUM(CASE WHEN c.gender = 'M' THEN 1 ELSE 0 END) AS nam,
        SUM(CASE WHEN c.gender = 'F' THEN 1 ELSE 0 END) AS nu
 FROM e_commerce.customer AS c
 GROUP BY c.occupation
 ORDER BY c.occupation;
+```
 
--- Em ơi, chị muốn biết mức discount trung bình đang áp dụng theo từng category sản phẩm.
--- Trả discount dạng %. Category nào đang discount nhiều nhất?
--- — CMO
+
+### Câu 5: Em ơi, chị muốn biết mức discount trung bình đang áp dụng theo từng category sản phẩm.Trả discount dạng %. Category nào đang discount nhiều nhất?
+— CMO
+
+**SQL Queries**
+```sql
 SELECT p.category AS loai_sp,
        AVG(es.discount) * 100.0 AS tb_sdung_discount
 FROM e_commerce.product AS p
 JOIN e_commerce.ecom_sales AS es ON p.product_code = es.product_code
 GROUP BY p.category
 ORDER BY tb_sdung_discount DESC;
+```
 
--- Chị cần profit margin (%) theo từng market (US, EMEA, APAC, LATAM) để
--- xem market nào đang lãi nhiều, market nào lỗ. Chỉ xét market có ít nhất 100 đơn để số ổn định.
--- Margin = profit / doanh thu × 100.
--- — CFO
+### Câu 6: Chị cần profit margin (%) theo từng market (US, EMEA, APAC, LATAM) để xem market nào đang lãi nhiều, market nào lỗ. Chỉ xét market có ít nhất 100 đơn để số ổn định. Margin = profit / doanh thu × 100.
+— CFO
+
+**SQL Queries**
+```sql
 SELECT r.market,
        SUM(es.profit) / SUM(es.sales) * 100.0 AS profit_margin
 FROM e_commerce.region AS r
@@ -94,22 +106,26 @@ JOIN e_commerce.ecom_sales AS es ON r.region_code = es.region_code
 GROUP BY r.market
 HAVING COUNT(*) >= 100
 ORDER BY profit_margin DESC;
+```
 
--- Anh nghi ngờ có đơn discount quá mạnh dẫn tới lỗ. Em check giúp anh: với mỗi segment,
--- có bao nhiêu đơn bị lỗ (profit âm), tổng số tiền lỗ bao nhiêu, và chiếm bao nhiêu % tổng số đơn của segment đó?
--- Anh cần đưa cảnh báo cho team pricing.
--- — CFO
+### Câu 7: Anh nghi ngờ có đơn discount quá mạnh dẫn tới lỗ. Em check giúp anh: với mỗi segment, có bao nhiêu đơn bị lỗ (profit âm), tổng số tiền lỗ bao nhiêu, và chiếm bao nhiêu % tổng số đơn của segment đó? Anh cần đưa cảnh báo cho team pricing.
+— CFO
+
+**SQL Queries**
+```sql
 SELECT es.segment,
        SUM(CASE WHEN es.profit < 0 THEN 1 ELSE 0 END) AS tong_don_lo,
        SUM(CASE WHEN es.profit < 0 THEN es.profit ELSE 0 END) AS tong_tien_lo,
        ROUND(SUM(CASE WHEN es.profit < 0 THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 2) AS don_lo_pct
 FROM e_commerce.ecom_sales AS es
 GROUP BY es.segment;
+```
 
--- Chị cần danh sách khách hàng chi tiêu top 50 trong lifetime của họ, nhưng đã
--- 180 ngày không mua hàng. Đây là nhóm VIP sắp churn, team retention cần target ngay.
--- Gửi chị: tên khách, tổng lifetime spend, ngày mua gần nhất.
--- — Head of Retention
+### Câu 8: Chị cần danh sách khách hàng chi tiêu top 50 trong lifetime của họ, nhưng đã 180 ngày không mua hàng. Đây là nhóm VIP sắp churn, team retention cần target ngay. Gửi chị: tên khách, tổng lifetime spend, ngày mua gần nhất.
+— Head of Retention
+
+**SQL Queries**
+```sql
 SELECT c.first_name + ' ' + c.last_name AS customer_name,
        SUM(es.sales) AS lifetime_spend,
        MAX(es.order_date) AS last_order_date
@@ -118,10 +134,13 @@ JOIN e_commerce.ecom_sales AS es ON c.customer_id = es.customer_id
 GROUP BY c.customer_id, c.first_name, c.last_name
 HAVING DATEDIFF(DAY, MAX(es.order_date), GETDATE()) >= 180
 ORDER BY lifetime_spend DESC;
+```
 
--- Anh cần tỷ trọng doanh thu Consumer vs Corporate ở mỗi category để hiểu category nào thiên
--- về B2C, category nào thiên về B2B. Output: category, % Consumer, % Corporate (tổng = 100%).
--- — Head of Growth
+### Câu 9: Anh cần tỷ trọng doanh thu Consumer vs Corporate ở mỗi category để hiểu category nào thiên về B2C, category nào thiên về B2B. Output: category, % Consumer, % Corporate (tổng = 100%).
+— Head of Growth
+
+**SQL Queries**
+```sql
 WITH temp AS (
     SELECT p.category, es.segment, es.sales
     FROM e_commerce.product AS p
@@ -134,10 +153,13 @@ SELECT category,
 FROM temp
 GROUP BY category
 ORDER BY category;
+```
 
--- Chị cần tổng hợp: top 15 quốc gia theo doanh thu, mỗi nước xem có bao nhiêu region active,
--- bao nhiêu customer, tổng doanh thu. Sắp theo doanh thu giảm dần.
--- — Head of International
+### Câu 10: Chị cần tổng hợp: top 15 quốc gia theo doanh thu, mỗi nước xem có bao nhiêu region active, bao nhiêu customer, tổng doanh thu. Sắp theo doanh thu giảm dần.
+— Head of International
+
+**SQL Queries**
+```sql
 SELECT TOP(15)
        r.country,
        COUNT(DISTINCT r.region) AS active_regions,
@@ -147,11 +169,13 @@ FROM e_commerce.region AS r
 JOIN e_commerce.ecom_sales AS es ON r.region_code = es.region_code
 GROUP BY r.country
 ORDER BY total_sales DESC;
+```
 
--- Anh cần doanh thu theo tháng + so sánh với cùng tháng năm trước (YoY growth %)
--- 24 tháng gần nhất. Board muốn thấy trend tăng trưởng rõ ràng. Output: year_month,
--- doanh thu, doanh thu cùng kỳ năm trước, % tăng trưởng YoY.
--- — CFO
+### Câu 10: Anh cần doanh thu theo tháng + so sánh với cùng tháng năm trước (YoY growth %)24 tháng gần nhất. Board muốn thấy trend tăng trưởng rõ ràng. Output: year_month,doanh thu, doanh thu cùng kỳ năm trước, % tăng trưởng YoY.
+— CFO
+
+**SQL Queries**
+```sql
 WITH temp AS (
     SELECT FORMAT(es.order_date, 'yyyy-MM') AS year_month,
            SUM(es.sales) AS doanh_thu
@@ -181,11 +205,13 @@ temp2 AS (
 SELECT *, (doanh_thu - dt_thang_nam_trc) * 100.0 / dt_thang_nam_trc AS yoy_pct
 FROM temp2
 ORDER BY yoy_pct DESC;
+```
 
--- Em cho chị top 3 sản phẩm có lifetime profit cao nhất trong mỗi category.
--- Dùng để làm product spotlight trong báo cáo Q4. Output: category,
--- tên sản phẩm, tổng profit, thứ hạng (1-3) trong category.
--- — Head of Merchandising
+### Câu 11: Em cho chị top 3 sản phẩm có lifetime profit cao nhất trong mỗi category. Dùng để làm product spotlight trong báo cáo Q4. Output: category, tên sản phẩm, tổng profit, thứ hạng (1-3) trong category.
+— Head of Merchandising
+
+**SQL Queries**
+```sql
 WITH temp AS (
     SELECT p.category, p.product,
            SUM(es.profit) AS tong_profit,
@@ -198,12 +224,13 @@ SELECT *
 FROM temp
 WHERE hang <= 3
 ORDER BY category;
+```
 
--- Chị muốn hiểu: bao nhiêu % khách hàng có mua ở nhiều market khác nhau
--- (VD: mua ở US rồi sau đó mua ở APAC)? Xác định cho mỗi khách:
--- market họ mua lần đầu, và liệu họ có mua ở market khác sau đó không.
--- Output 1 con số % + top 20 khách cross-market tiêu nhiều nhất.
--- — Head of International
+### Câu 12: Chị muốn hiểu: bao nhiêu % khách hàng có mua ở nhiều market khác nhau(VD: mua ở US rồi sau đó mua ở APAC)? Xác định cho mỗi khách:market họ mua lần đầu, và liệu họ có mua ở market khác sau đó không.Output 1 con số % + top 20 khách cross-market tiêu nhiều nhất.
+— Head of International
+
+**SQL Queries**
+```sql
 WITH temp AS (
     SELECT es.customer_id, r.market, es.order_date, es.sales
     FROM e_commerce.ecom_sales AS es
@@ -227,12 +254,14 @@ SELECT TOP(20)
 FROM temp3
 WHERE so_market > 1
 ORDER BY tong_sales DESC;
+```
 
--- Team CRM cần phân khúc khách hàng theo RFM (Recency: số ngày từ đơn gần nhất,
--- Frequency: số đơn, Monetary: tổng chi tiêu). Chia mỗi chỉ số thành 5 mức
--- (1-5, 5 là tốt nhất). Tính điểm RFM tổng hợp.
--- Gửi chị top 20 khách có RFM cao nhất để team chạy loyalty program.
--- — Head of CRMALTER
+
+### Câu 13: Team CRM cần phân khúc khách hàng theo RFM (Recency: số ngày từ đơn gần nhất, Frequency: số đơn, Monetary: tổng chi tiêu). Chia mỗi chỉ số thành 5 mức(1-5, 5 là tốt nhất). Tính điểm RFM tổng hợp.Gửi chị top 20 khách có RFM cao nhất để team chạy loyalty program.
+— Head of CRMALTER
+
+**SQL Queries**
+```sql
 WITH temp AS (
     SELECT es.customer_id,
            MAX(es.order_date) AS ngay_gan_nhat,
@@ -261,11 +290,13 @@ SELECT TOP (20)
        frequency + monetary + recency AS total_crm
 FROM temp3
 ORDER BY total_crm DESC;
+```
 
--- Team product đang build recommendation. Em cho anh top 15 cặp sản phẩm hay
--- xuất hiện cùng trong 1 đơn hàng. Chỉ xét đơn có từ 2 sản phẩm khác nhau trở lên.
--- Output: sản phẩm A, sản phẩm B, số lần xuất hiện cùng.
--- — Head of Product
+### Câu 14: Team product đang build recommendation. Em cho anh top 15 cặp sản phẩm hayxuất hiện cùng trong 1 đơn hàng. Chỉ xét đơn có từ 2 sản phẩm khác nhau trở lên.Output: sản phẩm A, sản phẩm B, số lần xuất hiện cùng.
+— Head of Product
+
+**SQL Queries**
+```sql
 SELECT TOP (15)
        p1.product AS san_pham_A,
        p2.product AS san_pham_B,
@@ -276,5 +307,4 @@ JOIN e_commerce.product AS p ON es1.product_code = p1.product_code
 JOIN e_commerce.product AS p2 ON es2.product_code = p2.product_code
 GROUP BY p1.product, p2.product
 ORDER BY so_lan_xuat_hien_cung DESC, san_pham_A, san_pham_B;
-
-
+```
