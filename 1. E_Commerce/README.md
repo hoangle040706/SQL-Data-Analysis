@@ -50,7 +50,7 @@ GROUP BY es.segment
 ORDER BY SUM(es.sales) DESC;
 ```
 **Query Results:**
-<img width="375" height="73" alt="image" src="https://github.com/hoangle040706/SQL-Data-Analysis/issues/2#issue-5814325819" />
+<img width="342" height="122" alt="Image" src="https://github.com/user-attachments/assets/d60eb7ad-8dac-433a-a95e-bf92f699ed24" />
 
 ### Câu 3: Chị đang planning restock, cần top 10 sản phẩm bán chạy nhất theo số lượng (không tính doanh thu). Gửi chị: mã sản phẩm, tên sản phẩm, tổng số lượng đã bán.
 — Head of Merchandising
@@ -66,6 +66,8 @@ JOIN e_commerce.ecom_sales AS es ON p.product_code = es.product_code
 GROUP BY p.product_code, p.product
 ORDER BY so_luong DESC;
 ```
+**Query Results:**
+<img width="655" height="295" alt="Image" src="https://github.com/user-attachments/assets/48bbe1f8-6281-4334-8697-226b9be35366" />
 
 ### Câu 4: Team CRM cần bảng phân bố khách hàng theo giới tính và nghề nghiệp để chọn targeting cho campaign email.Output pivot table: nghề nghiệp (hàng) × giới tính (cột) × số khách.
 — Head of CRM
@@ -79,7 +81,8 @@ FROM e_commerce.customer AS c
 GROUP BY c.occupation
 ORDER BY c.occupation;
 ```
-
+**Query Results:**
+<img width="412" height="177" alt="Image" src="https://github.com/user-attachments/assets/82fd9841-72ce-4677-9e2f-e77b93ee11dd" />
 
 ### Câu 5: Em ơi, chị muốn biết mức discount trung bình đang áp dụng theo từng category sản phẩm.Trả discount dạng %. Category nào đang discount nhiều nhất?
 — CMO
@@ -93,6 +96,8 @@ JOIN e_commerce.ecom_sales AS es ON p.product_code = es.product_code
 GROUP BY p.category
 ORDER BY tb_sdung_discount DESC;
 ```
+**Query Results:**
+<img width="387" height="175" alt="Image" src="https://github.com/user-attachments/assets/847cc2e6-5c6d-4772-a8c8-3ab86045c88b" />
 
 ### Câu 6: Chị cần profit margin (%) theo từng market (US, EMEA, APAC, LATAM) để xem market nào đang lãi nhiều, market nào lỗ. Chỉ xét market có ít nhất 100 đơn để số ổn định. Margin = profit / doanh thu × 100.
 — CFO
@@ -107,6 +112,8 @@ GROUP BY r.market
 HAVING COUNT(*) >= 100
 ORDER BY profit_margin DESC;
 ```
+**Query Results:**
+<img width="326" height="170" alt="Image" src="https://github.com/user-attachments/assets/f8fc397f-194c-4a17-89e8-7a757cbf83a6" />
 
 ### Câu 7: Anh nghi ngờ có đơn discount quá mạnh dẫn tới lỗ. Em check giúp anh: với mỗi segment, có bao nhiêu đơn bị lỗ (profit âm), tổng số tiền lỗ bao nhiêu, và chiếm bao nhiêu % tổng số đơn của segment đó? Anh cần đưa cảnh báo cho team pricing.
 — CFO
@@ -120,6 +127,8 @@ SELECT es.segment,
 FROM e_commerce.ecom_sales AS es
 GROUP BY es.segment;
 ```
+**Query Results:**
+<img width="662" height="120" alt="Image" src="https://github.com/user-attachments/assets/3577e476-6a7d-4b78-a20e-c1a653cb4b78" />
 
 ### Câu 8: Chị cần danh sách khách hàng chi tiêu top 50 trong lifetime của họ, nhưng đã 180 ngày không mua hàng. Đây là nhóm VIP sắp churn, team retention cần target ngay. Gửi chị: tên khách, tổng lifetime spend, ngày mua gần nhất.
 — Head of Retention
@@ -135,6 +144,8 @@ GROUP BY c.customer_id, c.first_name, c.last_name
 HAVING DATEDIFF(DAY, MAX(es.order_date), GETDATE()) >= 180
 ORDER BY lifetime_spend DESC;
 ```
+**Query Results:**
+<img width="588" height="320" alt="Image" src="https://github.com/user-attachments/assets/2523d326-06ff-4daf-b4b2-fa7e2b0f82d8" />
 
 ### Câu 9: Anh cần tỷ trọng doanh thu Consumer vs Corporate ở mỗi category để hiểu category nào thiên về B2C, category nào thiên về B2B. Output: category, % Consumer, % Corporate (tổng = 100%).
 — Head of Growth
@@ -154,6 +165,8 @@ FROM temp
 GROUP BY category
 ORDER BY category;
 ```
+**Query Results:**
+<img width="538" height="175" alt="Image" src="https://github.com/user-attachments/assets/fd24efdc-1944-4c17-af3f-23f4657049de" />
 
 ### Câu 10: Chị cần tổng hợp: top 15 quốc gia theo doanh thu, mỗi nước xem có bao nhiêu region active, bao nhiêu customer, tổng doanh thu. Sắp theo doanh thu giảm dần.
 — Head of International
@@ -170,8 +183,10 @@ JOIN e_commerce.ecom_sales AS es ON r.region_code = es.region_code
 GROUP BY r.country
 ORDER BY total_sales DESC;
 ```
+**Query Results:**
+<img width="695" height="318" alt="Image" src="https://github.com/user-attachments/assets/cad7d1d7-132a-4634-8ee0-71e8913cd7db" />
 
-### Câu 10: Anh cần doanh thu theo tháng + so sánh với cùng tháng năm trước (YoY growth %)24 tháng gần nhất. Board muốn thấy trend tăng trưởng rõ ràng. Output: year_month,doanh thu, doanh thu cùng kỳ năm trước, % tăng trưởng YoY.
+### Câu 11: Anh cần doanh thu theo tháng + so sánh với cùng tháng năm trước (YoY growth %)24 tháng gần nhất. Board muốn thấy trend tăng trưởng rõ ràng. Output: year_month,doanh thu, doanh thu cùng kỳ năm trước, % tăng trưởng YoY.
 — CFO
 
 **SQL Queries**
@@ -206,8 +221,10 @@ SELECT *, (doanh_thu - dt_thang_nam_trc) * 100.0 / dt_thang_nam_trc AS yoy_pct
 FROM temp2
 ORDER BY yoy_pct DESC;
 ```
+**Query Results:**
+<img width="687" height="322" alt="Image" src="https://github.com/user-attachments/assets/911fc991-53ae-4321-bfa8-455daa393bd2" />
 
-### Câu 11: Em cho chị top 3 sản phẩm có lifetime profit cao nhất trong mỗi category. Dùng để làm product spotlight trong báo cáo Q4. Output: category, tên sản phẩm, tổng profit, thứ hạng (1-3) trong category.
+### Câu 12: Em cho chị top 3 sản phẩm có lifetime profit cao nhất trong mỗi category. Dùng để làm product spotlight trong báo cáo Q4. Output: category, tên sản phẩm, tổng profit, thứ hạng (1-3) trong category.
 — Head of Merchandising
 
 **SQL Queries**
@@ -225,8 +242,10 @@ FROM temp
 WHERE hang <= 3
 ORDER BY category;
 ```
+**Query Results:**
+<img width="670" height="322" alt="Image" src="https://github.com/user-attachments/assets/fe075142-b44c-4ee0-8f4c-7db31b069b54" />
 
-### Câu 12: Chị muốn hiểu: bao nhiêu % khách hàng có mua ở nhiều market khác nhau(VD: mua ở US rồi sau đó mua ở APAC)? Xác định cho mỗi khách:market họ mua lần đầu, và liệu họ có mua ở market khác sau đó không.Output 1 con số % + top 20 khách cross-market tiêu nhiều nhất.
+### Câu 13: Chị muốn hiểu: bao nhiêu % khách hàng có mua ở nhiều market khác nhau(VD: mua ở US rồi sau đó mua ở APAC)? Xác định cho mỗi khách:market họ mua lần đầu, và liệu họ có mua ở market khác sau đó không.Output 1 con số % + top 20 khách cross-market tiêu nhiều nhất.
 — Head of International
 
 **SQL Queries**
@@ -255,9 +274,10 @@ FROM temp3
 WHERE so_market > 1
 ORDER BY tong_sales DESC;
 ```
+**Query Results:**
+<img width="573" height="105" alt="Image" src="https://github.com/user-attachments/assets/fe1bb2e5-6a34-4fb8-9f1a-5c431cdf4591" />
 
-
-### Câu 13: Team CRM cần phân khúc khách hàng theo RFM (Recency: số ngày từ đơn gần nhất, Frequency: số đơn, Monetary: tổng chi tiêu). Chia mỗi chỉ số thành 5 mức(1-5, 5 là tốt nhất). Tính điểm RFM tổng hợp.Gửi chị top 20 khách có RFM cao nhất để team chạy loyalty program.
+### Câu 14: Team CRM cần phân khúc khách hàng theo RFM (Recency: số ngày từ đơn gần nhất, Frequency: số đơn, Monetary: tổng chi tiêu). Chia mỗi chỉ số thành 5 mức(1-5, 5 là tốt nhất). Tính điểm RFM tổng hợp.Gửi chị top 20 khách có RFM cao nhất để team chạy loyalty program.
 — Head of CRMALTER
 
 **SQL Queries**
@@ -291,8 +311,10 @@ SELECT TOP (20)
 FROM temp3
 ORDER BY total_crm DESC;
 ```
+**Query Results:**
+<img width="832" height="325" alt="Image" src="https://github.com/user-attachments/assets/70656d43-c3ed-4beb-ad94-031a84def196" />
 
-### Câu 14: Team product đang build recommendation. Em cho anh top 15 cặp sản phẩm hayxuất hiện cùng trong 1 đơn hàng. Chỉ xét đơn có từ 2 sản phẩm khác nhau trở lên.Output: sản phẩm A, sản phẩm B, số lần xuất hiện cùng.
+### Câu 15: Team product đang build recommendation. Em cho anh top 15 cặp sản phẩm hayxuất hiện cùng trong 1 đơn hàng. Chỉ xét đơn có từ 2 sản phẩm khác nhau trở lên.Output: sản phẩm A, sản phẩm B, số lần xuất hiện cùng.
 — Head of Product
 
 **SQL Queries**
@@ -308,3 +330,5 @@ JOIN e_commerce.product AS p2 ON es2.product_code = p2.product_code
 GROUP BY p1.product, p2.product
 ORDER BY so_lan_xuat_hien_cung DESC, san_pham_A, san_pham_B;
 ```
+**Query Results:**
+<img width="1045" height="290" alt="Image" src="https://github.com/user-attachments/assets/c36669f2-cb20-43a5-b5cc-c35847f3cd16" />
